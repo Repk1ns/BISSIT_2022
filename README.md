@@ -38,6 +38,8 @@ $ python main.py single
 Trained neural network could recognize a pretty, big and wide handwritten digits.
 Loading and resizing the images will partially invalidate these images. The images are subsequently poorly recognized.
 
+There are two quitly differently trained NN in the repository - `trained_model.h5` and `trained_model_2.h5`
+
 ### Examples:
 
 ![0](https://user-images.githubusercontent.com/43761153/180827788-97c87710-eb39-4476-9069-f20fe48bddf8.jpeg)
