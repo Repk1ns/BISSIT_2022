@@ -41,28 +41,53 @@ Loading and resizing the images will partially invalidate these images. The imag
 ### Examples:
 
 ![0](https://user-images.githubusercontent.com/43761153/180827788-97c87710-eb39-4476-9069-f20fe48bddf8.jpeg)
+
 🔴 NOT recognized - Predicted: 9 (Zero is probably too round)
+
 ![0_t](https://user-images.githubusercontent.com/43761153/180828117-1a4fd9f8-fcb4-44bc-85df-00a981cec54d.jpeg)
+
 🟢 Recognized
+
 ![1](https://user-images.githubusercontent.com/43761153/180828174-d2d63bdc-581e-415c-bf30-af261d7e21e0.jpeg)
+
 🟢 Recognized
+
 ![2](https://user-images.githubusercontent.com/43761153/180828209-fcfe35d1-9fa8-4ced-be10-7127bb1d601c.jpeg)
+
 🟢 Recognized
+
 ![3](https://user-images.githubusercontent.com/43761153/180828230-c07d4f20-80d6-40c0-99ed-4c5db5d76857.jpeg)
+
 🟢 Recognized
+
 ![4](https://user-images.githubusercontent.com/43761153/180828243-0e48f06d-ef98-4f90-a3c5-ec4371f17762.jpeg)
+
 🟢 Recognized
+
 ![5](https://user-images.githubusercontent.com/43761153/180828381-8a1fe115-f9b9-4c9d-b3bb-a4121d1ebdc2.jpeg)
+
 🟢 Recognized
+
 ![6](https://user-images.githubusercontent.com/43761153/180828401-a74bd84d-adf1-4ab5-ba7c-be820ab3fbc4.jpeg)
+
 🟢 Recognized
+
 ![7](https://user-images.githubusercontent.com/43761153/180828454-fcbebc8d-76eb-4c8c-8e7e-006663d74c6e.jpeg)
+
 🟢 Recognized
+
 ![8](https://user-images.githubusercontent.com/43761153/180828492-c7eb597c-ebdb-4722-adc4-535891ca3e0c.jpeg)
+
 🟢 Recognized
+
 <img width="195" alt="9_d" src="https://user-images.githubusercontent.com/43761153/180828529-a81deb2c-acb5-4c74-8b78-23cf0153755c.png">
+
 🔴 NOT recognized - Predicted: 8 (Nine probably has too long tail)
+
 ![9](https://user-images.githubusercontent.com/43761153/180828586-9ba12611-38de-457f-bd7f-a987bea3ac22.jpeg)
+
 🔴 NOT recognized - Predicted: 3 (Nine probably has too rounded tail)
+
 ![9_t](https://user-images.githubusercontent.com/43761153/180828610-5bb4e0c7-7954-4d5d-8f70-665fec6b53b1.jpeg)
+
 🟢 Recognized
