@@ -1,42 +1,104 @@
 import matplotlib.pyplot as plt
+from sklearn.neighbors import NearestNeighbors
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.preprocessing.image import img_to_array
+import cv2 as cv
+import numpy as np
+import sys
 
-(X_train, y_train), (X_test, y_test) = mnist.load_data()
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-input_shape = X_train.shape[1] * X_train.shape[2]
-number_of_classes = len(set(y_train))
+test_images = list()
+test_images.append('test_images/0.jpeg')
+test_images.append('test_images/1.jpeg')
+test_images.append('test_images/2.jpeg')
+test_images.append('test_images/3.jpeg')
+test_images.append('test_images/4.jpeg')
+test_images.append('test_images/5.jpeg')
+test_images.append('test_images/6.jpeg')
+test_images.append('test_images/7.jpeg')
+test_images.append('test_images/8.jpeg')
+test_images.append('test_images/9.jpeg')
+test_images.append('test_images/0_t.jpeg')
+test_images.append('test_images/9_d.png')
+test_images.append('test_images/9_t.jpeg')
 
-X_train = X_train / 255.0
-X_test = X_test / 255
-X_train = X_train.reshape(-1, input_shape)
-X_test = X_test.reshape(-1, input_shape)
+wrong = 0
+good = 0
 
-y_train = to_categorical(y_train, number_of_classes)
-y_test = to_categorical(y_test, number_of_classes)
 
-model = Sequential()
-model.add(Dense(128, activation="relu", input_shape=X_train.shape[1:]))
-model.add(Dense(y_train.shape[1], activation="softmax"))
-model.compile(loss="categorical_crossentropy",
-              optimizer="adam",
-              metrics=["acc"])
+def find_digit(filename):
+    for m in filename:
+        if m.isdigit():
+            return m
 
-model.summary()
+def evaluate(digit, filename):
+    expected_number = find_digit(filename)
+    expected_number = int(expected_number)
+    predicted_number = digit[0]
 
-history = model.fit(X_train, y_train, batch_size=32, epochs=10, validation_split=0.2)
-loss, acc = model.evaluate(X_test, y_test)
-print("LOSS:", loss)
-print("ACCURACY:", acc)
+    if expected_number == predicted_number:
+        print(bcolors.OKGREEN + "CORRECT. Expected: {0}, Predicted: {1}".format(expected_number, predicted_number) + bcolors.ENDC)
+        #good = good + 1
+    else:
+        print(bcolors.FAIL + "WRONG. Expected: {0}, Predicted: {1}".format(expected_number, predicted_number) + bcolors.ENDC)
+        #wrong = wrong + 1
+        
 
-model.save("model.h5")
-loaded_model = load_model("model.h5")
+def test_all():
+    for i in range(len(test_images)):
 
-y_prob = model.predict(X_test[:1])[0]
-pred = y_prob.argmax(axis=-1)
+        img = load_img(test_images[i], color_mode="grayscale", target_size=(28, 28))
 
-print("real:", y_test[0].argmax())
-print("predict:", pred) 
+        img = img_to_array(img)
+
+        img = img.reshape(1, 28, 28, 1)
+
+        img = img.astype('float32')
+        img = img / 255.0
+
+        loaded_model = load_model("trained_model_2.h5")
+        predict_value = loaded_model.predict(img)
+        digit = predict_value.argmax(axis=-1)
+        evaluate(digit, test_images[i])
+        #print("Predicted number: {0}, Num in file: {1}".format(digit, test_images[i]))
+
+def test_single():
+    filename = 'test_images/0_t.jpeg'
+    img = load_img(filename, color_mode="grayscale", target_size=(28, 28))
+    plt.imshow(img)
+    plt.show()
+
+    img = img_to_array(img)
+    img = img.reshape(1, 28, 28, 1)
+    img = img.astype('float32')
+    img = img / 255.0
+    loaded_model = load_model("trained_model_2.h5")
+    predict_value = loaded_model.predict(img)
+    digit = predict_value.argmax(axis=-1)
+    #print("Predicted number: {0}".format(digit))
+    evaluate(digit, filename)
+
+if sys.argv[1] == 'all':
+    test_all()
+elif sys.argv[1] == 'single':
+    test_single()
+else:
+    print("Wrong parameter")
+    exit(42)
+
+print("Right: {0}, Wrong: {1}".format(good, wrong))
